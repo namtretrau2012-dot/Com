@@ -1,420 +1,656 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MENU FREE FIRE - ĐỖ QUỐC NAM</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0a0a0a;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        .menu {
-            background: linear-gradient(145deg, #1a1a2e, #16213e);
-            width: 400px;
-            border-radius: 24px;
-            padding: 24px 20px 30px;
-            box-shadow: 0 20px 60px rgba(255, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-            border: 1px solid #2a2a4a;
-        }
-        .menu-header {
-            text-align: center;
-            border-bottom: 1px solid #2a2a4a;
-            padding-bottom: 16px;
-            margin-bottom: 20px;
-        }
-        .menu-header h1 {
-            color: #ff4757;
-            font-size: 26px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 20px rgba(255, 71, 87, 0.4);
-        }
-        .menu-header h1 small {
-            font-size: 14px;
-            color: #8892b0;
-            display: block;
-            margin-top: 4px;
-            letter-spacing: 0;
-        }
-        .menu-header p {
-            color: #8892b0;
-            font-size: 12px;
-            margin-top: 6px;
-            letter-spacing: 1px;
-        }
-        .social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #1e1e32;
-        }
-        .social a {
-            color: #8892b0;
-            font-size: 13px;
-            text-decoration: none;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .social a:hover { color: #ff4757; }
-        .social .tiktok:hover { color: #00f2ea; }
-        .social .fb:hover { color: #1877f2; }
-        .music-control {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid #1e1e32;
-        }
-        .music-control button {
-            background: transparent;
-            border: 1px solid #ff4757;
-            color: #ff4757;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .music-control button:hover {
-            background: #ff4757;
-            color: #fff;
-        }
-        .music-control .vol {
-            color: #8892b0;
-            font-size: 12px;
-        }
-        .music-control input[type="range"] {
-            width: 80px;
-            background: #0d0d1a;
-            border: none;
-            accent-color: #ff4757;
-        }
-        .toggle-main {
-            background: #ff4757;
-            border: none;
-            color: #fff;
-            font-weight: bold;
-            padding: 10px;
-            border-radius: 30px;
-            width: 100%;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
-        }
-        .toggle-main:hover { background: #ff6b81; }
-        .toggle-main.off { background: #2d3436; box-shadow: none; }
-
-        .section {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 16px 14px;
-            margin-bottom: 14px;
-            border-left: 3px solid #ff4757;
-        }
-        .section-title {
-            color: #ccd6f6;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .section-title span { color: #ff4757; }
-        .btn-func {
-            background: transparent;
-            border: 2px solid #ff4757;
-            color: #ff4757;
-            padding: 12px;
-            border-radius: 30px;
-            width: 100%;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-bottom: 10px;
-        }
-        .btn-func:hover { background: #ff4757; color: #fff; }
-        .btn-func.active { background: #ff4757; color: #fff; box-shadow: 0 0 30px rgba(255,71,87,0.4); }
-        .btn-func.sub { border-color: #2ecc71; color: #2ecc71; }
-        .btn-func.sub:hover { background: #2ecc71; color: #fff; }
-        .btn-func.sub.active { background: #2ecc71; color: #fff; box-shadow: 0 0 30px rgba(46,204,113,0.4); }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 12px;
-            margin-bottom: 8px;
-            align-items: center;
-            justify-content: center;
-        }
-        .row label {
-            color: #a8b2d1;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .row input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #ff4757;
-            cursor: pointer;
-        }
-        .row input[type="range"] {
-            background: #0d0d1a;
-            border: 1px solid #2a2a4a;
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 8px;
-            font-size: 12px;
-            cursor: pointer;
-            width: 100px;
-        }
-        .row .value {
-            color: #ff4757;
-            font-size: 12px;
-            min-width: 30px;
-            text-align: right;
-        }
-        .status-bar {
-            text-align: center;
-            color: #8892b0;
-            font-size: 13px;
-            padding: 8px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.2);
-            margin-top: 10px;
-        }
-        .status-bar .highlight { color: #ff4757; font-weight: bold; }
-        .btn-apply {
-            background: transparent;
-            border: 1px solid #ff4757;
-            color: #ff4757;
-            padding: 8px;
-            border-radius: 30px;
-            width: 100%;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-        .btn-apply:hover { background: #ff4757; color: #fff; }
-        .note {
-            color: #495670;
-            font-size: 10px;
-            text-align: center;
-            margin-top: 14px;
-            border-top: 1px solid #1e1e32;
-            padding-top: 14px;
-        }
-        audio { display: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦈 Big Shark Menu v2 — Buff Mic Reverb</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+  }
+  .box {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 640px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  h1 { font-size: 22px; margin-bottom: 8px; color: #38bdf8; }
+  p { font-size: 14px; color: #94a3b8; line-height: 1.7; margin-bottom: 12px; }
+  ol { padding-left: 20px; font-size: 14px; color: #cbd5e1; line-height: 1.9; }
+  li { margin-bottom: 6px; }
+  code {
+    background: #0f172a;
+    color: #22d3ee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .warn {
+    margin-top: 18px;
+    padding: 12px;
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #fca5a5;
+  }
+  .hint {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(34, 197, 94, 0.1);
+    border-left: 4px solid #22c55e;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #86efac;
+  }
+  .kbd {
+    display: inline-block;
+    background: #334155;
+    border: 1px solid #475569;
+    border-bottom-width: 3px;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12px;
+    color: #e2e8f0;
+  }
+</style>
 </head>
 <body>
-<div class="menu" id="menuContainer">
-    <div class="menu-header">
-        <h1>⚡ ĐỖ QUỐC NAM <small>MENU</small></h1>
-        <p>FREE FIRE · AIM + ĐỊNH VỊ</p>
-        <div class="social">
-            <a href="https://www.tiktok.com/@sothikhoichoi" target="_blank" class="tiktok">🎵 @sothikhoichoi</a>
-            <a href="https://www.facebook.com/QuocNam" target="_blank" class="fb">📘 Quoc Nam</a>
-        </div>
-        <div class="music-control">
-            <button id="playBtn">▶ PLAY</button>
-            <span class="vol">🔊</span>
-            <input type="range" id="volControl" min="0" max="1" step="0.1" value="0.5">
-            <span class="vol" id="volLabel">50%</span>
-        </div>
-    </div>
 
-    <button class="toggle-main" id="mainToggle">▶ KÍCH HOẠT</button>
-
-    <!-- CHỨC NĂNG 1: AIMBOT -->
-    <div class="section">
-        <div class="section-title">🎯 CHỨC NĂNG 1 <span>AIMBOT</span></div>
-        <button class="btn-func" id="funcAim">▶ BẬT AIMBOT</button>
-        <div class="row">
-            <label><input type="checkbox" id="aimHeadshot" checked> Ưu tiên cổ</label>
-            <label><input type="checkbox" id="aimAutoFire"> Tự động bắn</label>
-        </div>
-        <div class="row">
-            <label>Tốc độ: <input type="range" id="aimSpeed" min="0.2" max="1.0" step="0.05" value="0.75"></label>
-            <span class="value" id="aimSpeedVal">0.75</span>
-        </div>
-    </div>
-
-    <!-- CHỨC NĂNG 2: ĐỊNH VỊ -->
-    <div class="section" style="border-left-color: #2ecc71;">
-        <div class="section-title">📍 CHỨC NĂNG 2 <span style="color:#2ecc71;">ĐỊNH VỊ</span></div>
-        <button class="btn-func sub" id="funcLocate">▶ BẬT ĐỊNH VỊ</button>
-        <div class="row">
-            <label><input type="checkbox" id="locateBox" checked> Khung</label>
-            <label><input type="checkbox" id="locateName" checked> Tên</label>
-            <label><input type="checkbox" id="locateDist" checked> Khoảng cách</label>
-        </div>
-        <div class="row">
-            <label>Màu địch: <input type="color" id="enemyColor" value="#ff0000" style="width:40px;"></label>
-            <label>Màu đồng đội: <input type="color" id="teamColor" value="#00ff00" style="width:40px;"></label>
-        </div>
-    </div>
-
-    <!-- TRẠNG THÁI -->
-    <div class="status-bar" id="statusBar">
-        🟢 Trạng thái: <span class="highlight" id="statusText">SẴN SÀNG</span>
-    </div>
-
-    <button class="btn-apply" id="applyBtn">✅ ÁP DỤNG CẤU HÌNH</button>
-    <div class="note">Bản quyền thuộc về Đỗ Quốc Nam · Dành cho mục đích nghiên cứu</div>
+<div class="box">
+  <h1>🦈 Big Shark Menu v2 đang chạy!</h1>
+  <p>Script đã được nạp. Nút <b>🦈 màu trắng</b> sẽ xuất hiện ở góc trên bên phải màn hình.</p>
+  <ol>
+    <li>Bấm nút <b>🦈</b> để mở/đóng menu Big Shark.</li>
+    <li>Bấm <b>⚡ KÍCH HOẠT BIG SHARK</b> để bật/tắt hiệu ứng (bypass thật).</li>
+    <li>Chọn <b>Preset</b> nhanh: Live · Podcast · Karaoke · Bass · Max.</li>
+    <li>Chỉnh các thanh trượt: Gain Mic, Bass, Mid, Treble, Reverb, Độ dài vang.</li>
+    <li>Vào <b>Messenger web</b> / <b>Discord web</b> / <b>Google Meet</b> → cấp quyền mic → hiệu ứng tự áp dụng.</li>
+  </ol>
+  <div class="warn">
+    ⚠️ <b>Quan trọng:</b> Script chỉ hoạt động khi trang web bạn dùng có gọi <code>getUserMedia()</code>.
+    Nếu không, nút sẽ hiện nhưng không có âm thanh nào bị ảnh hưởng.<br><br>
+    Cách dùng: Mở Console (<span class="kbd">F12</span>) của trang như <code>messenger.com</code> → paste toàn bộ code JS trong file này → Enter.
+  </div>
+  <div class="hint">
+    💡 <b>Mẹo:</b> Trạng thái ON/OFF và các thông số được <b>tự động lưu</b> vào localStorage. Lần sau mở lại sẽ nhớ cài đặt.
+  </div>
 </div>
 
-<!-- Audio: Nhạc Remix (Nguồn từ bên thứ ba, có thể thay link) -->
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-    // ===== MUSIC =====
-    const audio = document.getElementById('bgMusic');
-    const playBtn = document.getElementById('playBtn');
-    const volControl = document.getElementById('volControl');
-    const volLabel = document.getElementById('volLabel');
-    let isPlaying = false;
+/* ═══════════════════════════════════════════════════════════════════════
+   🦈 BIG SHARK MENU v2 — BUFF MIC REVERB
+   ───────────────────────────────────────────────────────────────────
+   Tác giả gốc: (bản gốc)
+   Nâng cấp: Bypass thật · Preset · localStorage · Meter · Cleanup
+   ═══════════════════════════════════════════════════════════════════════ */
+(function () {
+'use strict';
 
-    // Phát / Tạm dừng
-    playBtn.addEventListener('click', function() {
-        if (isPlaying) {
-            audio.pause();
-            this.textContent = '▶ PLAY';
-        } else {
-            audio.play().catch(() => {
-                alert('⚠️ Không thể phát nhạc. Kiểm tra kết nối mạng.');
-            });
-            this.textContent = '⏸ PAUSE';
+if (window.__BigSharkMenuV2__) return;
+window.__BigSharkMenuV2__ = true;
+
+/* ─────────── CẤU HÌNH MẶC ĐỊNH ─────────── */
+const DEFAULTS = {
+  inputGain: 30.0,
+  outputGain: 1.8,
+  bassFreq: 80.0,
+  bassGain: 8.0,
+  midFreq: 1000.0,
+  midGain: 6.0,
+  trebleFreq: 6000.0,
+  trebleGain: 3.0,
+  reverbSolo: 1.40,
+  reverbDuration: 3.0
+};
+
+const STORAGE_KEY = 'bigSharkV2_settings';
+let P = Object.assign({}, DEFAULTS);
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  P = Object.assign(P, saved);
+} catch (e) {}
+
+function saveSettings() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(P)); } catch (e) {}
+}
+
+/* ─────────── PRESET ─────────── */
+const PRESETS = {
+  live:    { inputGain: 30, bassGain: 8,  midGain: 6,  trebleGain: 3,  reverbSolo: 1.40, reverbDuration: 3.0 },
+  podcast: { inputGain: 35, bassGain: 5,  midGain: 8,  trebleGain: 5,  reverbSolo: 0.30, reverbDuration: 1.5 },
+  karaoke: { inputGain: 28, bassGain: 10, midGain: 4,  trebleGain: 4,  reverbSolo: 1.80, reverbDuration: 4.0 },
+  bass:    { inputGain: 30, bassGain: 18, midGain: 4,  trebleGain: 2,  reverbSolo: 0.80, reverbDuration: 2.0 },
+  max:     { inputGain: 45, bassGain: 15, midGain: 10, trebleGain: 8,  reverbSolo: 1.60, reverbDuration: 3.5 }
+};
+
+/* ─────────── STATE ─────────── */
+let _ctx = null;
+let _rawStream = null;
+let isActive = false;
+let _nodes = {};
+let _meterRAF = 0;
+
+/* ─────────── UTILS ─────────── */
+function createReverbBuffer(ctx, duration) {
+  const sampleRate = ctx.sampleRate;
+  const length = Math.max(1, Math.floor(sampleRate * duration));
+  const impulse = ctx.createBuffer(2, length, sampleRate);
+  const left = impulse.getChannelData(0);
+  const right = impulse.getChannelData(1);
+  for (let i = 0; i < length; i++) {
+    const n = i / length;
+    const k = Math.pow(1 - n, 1.5);
+    left[i]  = (Math.random() * 2 - 1) * k;
+    right[i] = (Math.random() * 2 - 1) * k;
+  }
+  return impulse;
+}
+
+function getAudioContext() {
+  if (!_ctx) {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    try {
+      _ctx = new AC({ latencyHint: 'interactive', sampleRate: 48000 });
+    } catch (e) {
+      _ctx = new AC({ latencyHint: 'interactive' });
+    }
+  }
+  return _ctx;
+}
+
+/* ─────────── HOOK getUserMedia ─────────── */
+const _nativeGUM = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+
+navigator.mediaDevices.getUserMedia = async function (constraints) {
+  // Chuẩn hoá constraints audio
+  if (constraints && constraints.audio) {
+    const ac = typeof constraints.audio === 'object' ? constraints.audio : {};
+    constraints.audio = Object.assign({}, ac, {
+      echoCancellation: false,     // tắt để không triệt reverb
+      noiseSuppression: false,     // tắt để giữ chi tiết giọng
+      autoGainControl: false       // tắt để gain thủ công hoạt động
+    });
+  }
+
+  let rawStream;
+  try {
+    rawStream = await _nativeGUM(constraints);
+  } catch (err) {
+    console.error('🦈 Big Shark: getUserMedia gốc lỗi:', err);
+    throw err;
+  }
+
+  _rawStream = rawStream;
+
+  if (!rawStream.getAudioTracks().length) {
+    return rawStream;
+  }
+
+  try {
+    const ctx = getAudioContext();
+    if (ctx.state === 'suspended') await ctx.resume();
+
+    const src  = ctx.createMediaStreamSource(rawStream);
+    const dest = ctx.createMediaStreamDestination();
+
+    /* ─── Nodes ─── */
+    const noiseGate = ctx.createDynamicsCompressor();
+    noiseGate.threshold.value = -40.0;
+    noiseGate.ratio.value = 4.0;
+    noiseGate.attack.value = 0.001;
+    noiseGate.release.value = 0.1;
+
+    const lowCut = ctx.createBiquadFilter();
+    lowCut.type = 'highpass';
+    lowCut.frequency.value = 80.0;
+    lowCut.Q.value = 0.7;
+
+    const bassEQ = ctx.createBiquadFilter();
+    bassEQ.type = 'lowshelf';
+    bassEQ.frequency.value = P.bassFreq;
+    bassEQ.gain.value = P.bassGain;
+
+    const midEQ = ctx.createBiquadFilter();
+    midEQ.type = 'peaking';
+    midEQ.frequency.value = P.midFreq;
+    midEQ.Q.value = 0.7;
+    midEQ.gain.value = P.midGain;
+
+    const trebleEQ = ctx.createBiquadFilter();
+    trebleEQ.type = 'highshelf';
+    trebleEQ.frequency.value = P.trebleFreq;
+    trebleEQ.gain.value = P.trebleGain;
+
+    const highCut = ctx.createBiquadFilter();
+    highCut.type = 'lowpass';
+    highCut.frequency.value = 16000;
+
+    const inGain = ctx.createGain();
+    inGain.gain.value = P.inputGain;
+
+    const compressor = ctx.createDynamicsCompressor();
+    compressor.threshold.value = -12.0;
+    compressor.knee.value = 6.0;
+    compressor.ratio.value = 3.0;
+    compressor.attack.value = 0.005;
+    compressor.release.value = 0.08;
+
+    const outGain = ctx.createGain();
+    outGain.gain.value = P.outputGain;
+
+    const dryGain = ctx.createGain();
+    dryGain.gain.value = 1.2;
+
+    const convolver = ctx.createConvolver();
+    convolver.buffer = createReverbBuffer(ctx, P.reverbDuration);
+
+    const reverbFilter = ctx.createBiquadFilter();
+    reverbFilter.type = 'peaking';
+    reverbFilter.frequency.value = 2000;
+    reverbFilter.Q.value = 0.5;
+    reverbFilter.gain.value = -3.0;
+
+    const wetGain = ctx.createGain();
+    wetGain.gain.value = P.reverbSolo;
+
+    const bypassGain = ctx.createGain();
+    bypassGain.gain.value = 1;
+
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 256;
+
+    /* ─── WIRING ─── */
+    // Nhánh bypass (mặc định mở để khi chưa bật thì mic nghe y nguyên)
+    src.connect(bypassGain);
+    bypassGain.connect(dest);
+
+    // Nhánh xử lý
+    src.connect(noiseGate);
+    noiseGate.connect(lowCut);
+    lowCut.connect(bassEQ);
+    bassEQ.connect(midEQ);
+    midEQ.connect(trebleEQ);
+    trebleEQ.connect(highCut);
+    highCut.connect(inGain);
+    inGain.connect(compressor);
+    compressor.connect(outGain);
+
+    outGain.connect(dryGain);
+    dryGain.connect(dest);
+
+    outGain.connect(reverbFilter);
+    reverbFilter.connect(convolver);
+    convolver.connect(wetGain);
+    wetGain.connect(dest);
+
+    outGain.connect(analyser);
+
+    _nodes = {
+      src, dest, noiseGate, lowCut, bassEQ, midEQ, trebleEQ, highCut,
+      inGain, compressor, outGain, dryGain, convolver, reverbFilter,
+      wetGain, bypassGain, analyser
+    };
+    window.__bmNodes = _nodes;
+
+    applyActiveState();
+
+    UI.badge(isActive ? '🔴 BIG SHARK ACTIVE' : '🔵 BIG SHARK STANDBY',
+             isActive ? '#e74c3c' : '#2196F3');
+
+    startMeter();
+
+    return dest.stream;
+
+  } catch (err) {
+    console.warn('🦈 Big Shark: Audio graph error, fallback về raw:', err);
+    return rawStream;
+  }
+};
+
+/* ─────────── APPLY ACTIVE ─────────── */
+function applyActiveState() {
+  if (!_nodes.bypassGain || !_ctx) return;
+  const t = _ctx.currentTime;
+  if (isActive) {
+    _nodes.bypassGain.gain.setTargetAtTime(0, t, 0.03);
+    _nodes.dryGain.gain.setTargetAtTime(1.2, t, 0.03);
+    _nodes.wetGain.gain.setTargetAtTime(P.reverbSolo, t, 0.03);
+  } else {
+    _nodes.bypassGain.gain.setTargetAtTime(1, t, 0.03);
+    _nodes.dryGain.gain.setTargetAtTime(0, t, 0.03);
+    _nodes.wetGain.gain.setTargetAtTime(0, t, 0.03);
+  }
+}
+
+/* ─────────── METER ─────────── */
+function startMeter() {
+  cancelAnimationFrame(_meterRAF);
+  const canvas = document.getElementById('bm-meter');
+  if (!canvas || !_nodes.analyser) return;
+  const c2d = canvas.getContext('2d');
+  const buf = new Uint8Array(_nodes.analyser.frequencyBinCount);
+
+  function draw() {
+    _meterRAF = requestAnimationFrame(draw);
+    if (!_nodes.analyser) return;
+    _nodes.analyser.getByteFrequencyData(buf);
+    let sum = 0;
+    for (let i = 0; i < buf.length; i++) sum += buf[i];
+    const level = Math.min(1, (sum / buf.length) / 100);
+
+    c2d.fillStyle = '#e5e7eb';
+    c2d.fillRect(0, 0, canvas.width, canvas.height);
+
+    const grad = c2d.createLinearGradient(0, 0, canvas.width, 0);
+    grad.addColorStop(0,   '#22c55e');
+    grad.addColorStop(0.7, '#eab308');
+    grad.addColorStop(1,   '#ef4444');
+    c2d.fillStyle = grad;
+    c2d.fillRect(0, 0, canvas.width * level, canvas.height);
+  }
+  draw();
+}
+
+/* ─────────── UI ─────────── */
+const UI = {
+  badge(txt, col) {
+    const b = document.getElementById('bm-st');
+    if (b) { b.innerText = txt; b.style.color = col; }
+  },
+
+  init() {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.id = 'bm-toggle-btn';
+    toggleBtn.innerText = '🦈';
+    toggleBtn.title = 'Bật/Tắt Menu Big Shark';
+
+    const el = document.createElement('div');
+    el.id = 'bm-ui';
+    el.innerHTML = `
+      <div class="bm-head">
+        <span class="bm-brand">🦈 BIG SHARK <small>v2</small></span>
+        <span id="bm-st">STANDBY</span>
+        <button class="bm-min" id="bm-min" title="Thu gọn">–</button>
+      </div>
+
+      <button id="bm-act">⚡ KÍCH HOẠT BIG SHARK</button>
+
+      <div class="bm-presets">
+        <button data-preset="live">🎤 Live</button>
+        <button data-preset="podcast">🎙️ Podcast</button>
+        <button data-preset="karaoke">🎶 Karaoke</button>
+        <button data-preset="bass">🔊 Bass</button>
+        <button data-preset="max">💥 Max</button>
+      </div>
+
+      <div class="bm-body" id="bm-body">
+        <div class="bm-panel">
+          <div class="bm-label">🎤 GAIN MIC <span class="bm-val" id="bm-v-ingain">${P.inputGain}</span></div>
+          <input type="range" id="bm-ingain" min="1" max="50" step="1" value="${P.inputGain}">
+
+          <div class="bm-label">🔊 BASS <span class="bm-val" id="bm-v-bass">${P.bassGain}</span></div>
+          <input type="range" id="bm-bass" min="0" max="20" step="0.5" value="${P.bassGain}">
+
+          <div class="bm-label">🎵 MID <span class="bm-val" id="bm-v-mid">${P.midGain}</span></div>
+          <input type="range" id="bm-mid" min="0" max="12" step="0.5" value="${P.midGain}">
+
+          <div class="bm-label">✨ TREBLE <span class="bm-val" id="bm-v-treble">${P.trebleGain}</span></div>
+          <input type="range" id="bm-treble" min="0" max="10" step="0.5" value="${P.trebleGain}">
+
+          <div class="bm-label">🌊 REVERB <span class="bm-val" id="bm-v-rev">${Math.round(P.reverbSolo*100)}%</span></div>
+          <input type="range" id="bm-rev" min="0" max="200" value="${Math.round(P.reverbSolo*100)}">
+
+          <div class="bm-label">⏱️ ĐỘ DÀI VANG <span class="bm-val" id="bm-v-dur">${P.reverbDuration}s</span></div>
+          <input type="range" id="bm-dur" min="0.5" max="5" step="0.5" value="${P.reverbDuration}">
+        </div>
+
+        <div class="bm-label" style="margin-top:12px;">📊 TÍN HIỆU MIC</div>
+        <canvas id="bm-meter" width="248" height="10" class="bm-meter"></canvas>
+
+        <div class="bm-foot">
+          🎧 VST 2 TAI · LỌC TẠP ÂM · MIC RÕ TO
+        </div>
+      </div>
+    `;
+
+    const css = `
+      #bm-toggle-btn {
+        position: fixed; top: 20px; right: 20px; width: 46px; height: 46px;
+        background: #ffffff; border: 2px solid #1a237e; border-radius: 50%;
+        color: #1a237e; font-size: 22px; cursor: pointer; z-index: 2147483000;
+        box-shadow: 0 0 20px rgba(26,35,126,0.3); display: flex;
+        align-items: center; justify-content: center;
+        transition: all 0.3s ease; padding: 0; line-height: 1;
+      }
+      #bm-toggle-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(26,35,126,0.5); }
+      #bm-toggle-btn.on { background: linear-gradient(135deg, #00b09b, #2ecc71); border-color: #2ecc71; color: #fff; }
+
+      #bm-ui {
+        position: fixed; top: 76px; right: 20px; width: 296px; background: #ffffff;
+        border: 2px solid #e0e0e0; padding: 14px; border-radius: 14px;
+        color: #1a1a1a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        z-index: 2147483000; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+      }
+      #bm-ui.bm-hidden { display: none; }
+
+      .bm-head {
+        display: flex; align-items: center; justify-content: space-between;
+        border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 12px;
+      }
+      .bm-brand { font-weight: 900; font-size: 14px; letter-spacing: 0.5px; }
+      .bm-brand small { font-size: 9px; background: #1a237e; color: #fff;
+        padding: 2px 5px; border-radius: 4px; vertical-align: middle; }
+      #bm-st { font-size: 9px; font-weight: bold; color: #2196F3; }
+      .bm-min {
+        background: #f0f0f0; border: none; width: 22px; height: 22px;
+        border-radius: 6px; cursor: pointer; font-weight: 900; color: #666;
+        line-height: 1; padding: 0;
+      }
+      .bm-min:hover { background: #e0e0e0; }
+
+      #bm-act {
+        width: 100%; padding: 12px; background: linear-gradient(135deg, #1a237e, #0d47a1);
+        color: #fff; font-weight: bold; font-size: 12px; border: none;
+        border-radius: 8px; cursor: pointer; margin-bottom: 12px;
+        box-shadow: 0 4px 15px rgba(13,71,161,0.3); transition: all 0.3s ease;
+      }
+      #bm-act.active {
+        background: linear-gradient(135deg, #00b09b, #2ecc71);
+        box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+      }
+
+      .bm-presets {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
+        margin-bottom: 12px;
+      }
+      .bm-presets button {
+        padding: 7px 4px; border-radius: 8px; border: 1px solid #e0e0e0;
+        background: #fafafa; font-size: 10px; font-weight: 700; cursor: pointer;
+        color: #333; transition: all 0.15s;
+      }
+      .bm-presets button:hover { background: #1a237e; color: #fff; border-color: #1a237e; }
+      .bm-presets button.active { background: #1a237e; color: #fff; border-color: #1a237e; }
+
+      .bm-panel { background: #f8f9fa; padding: 10px 12px; border-radius: 8px; }
+
+      .bm-label {
+        font-size: 10px; font-weight: 700; color: #555; margin-top: 8px;
+        margin-bottom: 4px; letter-spacing: 0.3px;
+        display: flex; justify-content: space-between;
+      }
+      .bm-label:first-child { margin-top: 0; }
+      .bm-val { color: #1a237e; font-weight: 900; }
+
+      #bm-ui input[type=range] {
+        -webkit-appearance: none; appearance: none;
+        width: 100%; height: 5px; background: #d8dce1; border-radius: 3px;
+        cursor: pointer; outline: none; margin-bottom: 2px;
+      }
+      #bm-ui input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none; appearance: none; width: 15px; height: 15px;
+        background: #1a237e; border-radius: 50%; cursor: pointer;
+        box-shadow: 0 2px 6px rgba(26,35,126,0.35);
+      }
+      #bm-ui input[type=range]::-moz-range-thumb {
+        width: 15px; height: 15px; background: #1a237e; border-radius: 50%;
+        cursor: pointer; border: none; box-shadow: 0 2px 6px rgba(26,35,126,0.35);
+      }
+
+      .bm-meter { width: 100%; height: 10px; border-radius: 4px; display: block; }
+      .bm-foot {
+        font-size: 9px; color: #888; text-align: center;
+        border-top: 1px solid #eee; padding-top: 10px; margin-top: 12px;
+        letter-spacing: 0.3px;
+      }
+    `;
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+    document.body.appendChild(toggleBtn);
+    document.body.appendChild(el);
+
+    /* Toggle menu */
+    toggleBtn.onclick = () => el.classList.toggle('bm-hidden');
+
+    /* Thu gọn */
+    document.getElementById('bm-min').onclick = () => {
+      const body = document.getElementById('bm-body');
+      const presets = el.querySelector('.bm-presets');
+      const btn = document.getElementById('bm-min');
+      const hidden = body.style.display === 'none';
+      body.style.display = hidden ? '' : 'none';
+      presets.style.display = hidden ? '' : 'none';
+      btn.innerText = hidden ? '–' : '+';
+    };
+
+    /* Nút kích hoạt */
+    document.getElementById('bm-act').onclick = async () => {
+      const ctx = getAudioContext();
+      if (ctx.state === 'suspended') await ctx.resume();
+
+      isActive = !isActive;
+      const btn = document.getElementById('bm-act');
+
+      if (isActive) {
+        btn.innerText = '✅ ĐANG BẬT (BẤM ĐỂ TẮT)';
+        btn.classList.add('active');
+        toggleBtn.classList.add('on');
+        applyActiveState();
+        UI.badge('🔴 BIG SHARK ACTIVE', '#e74c3c');
+      } else {
+        btn.innerText = '⚡ KÍCH HOẠT BIG SHARK';
+        btn.classList.remove('active');
+        toggleBtn.classList.remove('on');
+        applyActiveState();
+        UI.badge('🔵 BIG SHARK STANDBY', '#2196F3');
+      }
+    };
+
+    /* Bind sliders */
+    function bindSlider(id, valId, key, transform, format) {
+      const input = document.getElementById(id);
+      const val = document.getElementById(valId);
+      if (!input) return;
+      input.oninput = (e) => {
+        const v = parseFloat(e.target.value);
+        const real = transform ? transform(v) : v;
+        P[key] = real;
+        if (val) val.textContent = format ? format(real) : real;
+        saveSettings();
+
+        const nodeMap = {
+          inputGain:  ['inGain',    'gain'],
+          bassGain:   ['bassEQ',    'gain'],
+          midGain:    ['midEQ',     'gain'],
+          trebleGain: ['trebleEQ',  'gain'],
+          reverbSolo: ['wetGain',   'gain']
+        };
+        const m = nodeMap[key];
+        if (m && _nodes[m[0]] && isActive && _ctx) {
+          _nodes[m[text0]][m[1]].setTargetAtTime(real, _ctx.currentTime, 0.03);
         }
-        isPlaying = !isPlaying;
-    });
-
-    // Điều chỉnh âm lượng
-    volControl.addEventListener('input', function() {
-        audio.volume = this.value;
-        volLabel.textContent = Math.round(this.value * 100) + '%';
-    });
-
-    // Tự động phát khi người dùng tương tác (tránh lỗi iOS)
-    document.addEventListener('click', function() {
-        if (!isPlaying && audio.paused) {
-            // Không tự động play, để người dùng bấm PLAY
-        }
-    });
-
-    // Nếu nhạc kết thúc, tự động lặp (đã có loop)
-    audio.addEventListener('ended', function() {
-        // Loop đã được bật, không cần xử lý thêm
-    });
-
-    // ===== HIỂN THỊ GIÁ TRỊ SLIDER =====
-    document.getElementById('aimSpeed').addEventListener('input', function() {
-        document.getElementById('aimSpeedVal').textContent = this.value;
-    });
-
-    // NÚT KÍCH HOẠT CHÍNH
-    let mainOn = true;
-    document.getElementById('mainToggle').addEventListener('click', function() {
-        mainOn = !mainOn;
-        this.textContent = mainOn ? '▶ KÍCH HOẠT' : '⏸ TẠM DỪNG';
-        this.classList.toggle('off', !mainOn);
-        updateStatus();
-    });
-
-    // CHỨC NĂNG 1: AIMBOT
-    let aimOn = false;
-    document.getElementById('funcAim').addEventListener('click', function() {
-        if (!mainOn) { alert('⚠️ Vui lòng bật KÍCH HOẠT chính trước!'); return; }
-        aimOn = !aimOn;
-        this.textContent = aimOn ? '⏸ TẮT AIMBOT' : '▶ BẬT AIMBOT';
-        this.classList.toggle('active', aimOn);
-        updateStatus();
-    });
-
-    // CHỨC NĂNG 2: ĐỊNH VỊ
-    let locateOn = false;
-    document.getElementById('funcLocate').addEventListener('click', function() {
-        if (!mainOn) { alert('⚠️ Vui lòng bật KÍCH HOẠT chính trước!'); return; }
-        locateOn = !locateOn;
-        this.textContent = locateOn ? '⏸ TẮT ĐỊNH VỊ' : '▶ BẬT ĐỊNH VỊ';
-        this.classList.toggle('active', locateOn);
-        updateStatus();
-    });
-
-    // CẬP NHẬT TRẠNG THÁI
-    function updateStatus() {
-        const status = document.getElementById('statusText');
-        if (!mainOn) {
-            status.textContent = '🔴 TẠM DỪNG';
-            status.style.color = '#ff4757';
-        } else if (aimOn && locateOn) {
-            status.textContent = '✅ AIMBOT + ĐỊNH VỊ ĐANG BẬT';
-            status.style.color = '#2ecc71';
-        } else if (aimOn) {
-            status.textContent = '✅ AIMBOT ĐANG BẬT';
-            status.style.color = '#ff4757';
-        } else if (locateOn) {
-            status.textContent = '✅ ĐỊNH VỊ ĐANG BẬT';
-            status.style.color = '#2ecc71';
-        } else {
-            status.textContent = '🟢 SẴN SÀNG';
-            status.style.color = '#ff4757';
-        }
+      };
     }
 
-    // NÚT ÁP DỤNG
-    document.getElementById('applyBtn').addEventListener('click', function() {
-        const config = {
-            creator: "Đỗ Quốc Nam",
-            tiktok: "@sothikhoichoi",
-            facebook: "Quoc Nam",
-            music: {
-                playing: isPlaying,
-                volume: parseFloat(volControl.value)
-            },
-            main: mainOn,
-            aim: {
-                enable: aimOn,
-                headshot: document.getElementById('aimHeadshot').checked,
-                autoFire: document.getElementById('aimAutoFire').checked,
-                speed: parseFloat(document.getElementById('aimSpeed').value)
-            },
-            locate: {
-                enable: locateOn,
-                box: document.getElementById('locateBox').checked,
-                name: document.getElementById('locateName').checked,
-                dist: document.getElementById('locateDist').checked,
-                enemyColor: document.getElementById('enemyColor').value,
-                teamColor: document.getElementById('teamColor').value
-            }
-        };
-        console.log('===== ĐỖ QUỐC NAM CONFIG =====');
-        console.log(JSON.stringify(config, null, 2));
-        alert('✅ Đã áp dụng cấu hình!\nAimbot: ' + (aimOn ? 'BẬT' : 'TẮT') + '\nĐịnh vị: ' + (locateOn ? 'BẬT' : 'TẮT'));
-    });
+    bindSlider('bmContent-ingain', 'bm-v-ingain', 'inputGain');
+    bindSlider('bm-bass',   'bm-v-bass', =    'bassGain');
+    bindSlider('bm-mid',    'bm-v-mid',     'midGain');
+    P bindSlider('bm-treble', 'bm-v-treble',  'trebleGain');
+    bindSlider('bm-rev',.t    'bm-v-rev',     'reverbSolo', v => v / 100, v => Math.round(v * re100) + '%');
 
-    // KHỞI TẠO
-    updateStatus();
+    /* Slider độ dài vang — rebuild convolver */
+    const durInput = document.getElementById('bm-dur');
+    durInput.oninput = (e) => {
+      P.reverbDuration = parseFloat(e.target.value);
+      document.getElementById('bm-v-dur').textContent = P.reverbDuration + 's';
+      saveSettings();
+      if (_nodes.convolver && _ctx) {
+        _nodes.convolver.buffer = createReverbBuffer(_ctx, P.reverbDuration);
+      }
+    };
+
+    /* Preset buttons */
+    el.querySelectorAll('.bm-presets button').forEach(btn => {
+      btn.onclick = () => {
+        const key = btn.dataset.preset;
+        const preset = PRESETS[key];
+        if (!preset) return;
+
+        Object.assign(P, preset);
+        saveSettings();
+
+        document.getElementById('bm-ingain').value = P.inputGain;
+        document.getElementById('bm-v-ingain').textContent = P.inputGain;
+        document.getElementById('bm-bass').value = P.bassGain;
+        document.getElementById('bm-v-bass').textContent = P.bassGain;
+        document.getElementById('bm-mid').value = P.midGain;
+        document.getElementById('bm-v-mid').textContent = P.midGain;
+        document.getElementById('bm-treble').value = P.trebleGain;
+        document.getElementById('bm-v-treble').bleGain;
+        document.getElementById('bm-rev').value = Math.round(P.reverbSolo * 100);
+        document.getElementById('bm-v-rev').textContent = Math.round(P.reverbSolo * 100) + '%';
+        document.getElementById('bm-dur').value = P.reverbDuration;
+        document.getElementById('bm-v-dur').textContent = P.reverbDuration + 's';
+
+        el.querySelectorAll('.bm-presets button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Áp dụng vào nodes
+        if (_nodes.inGain) _nodes.inGain.gain.value = P.inputGain;
+        if (_nodes.bassEQ) _nodes.bassEQ.gain.value = P.bassGain;
+        if (_nodes.midEQ) _nodes.midEQ.gain.value = P.midGain;
+        if (_nodes.trebleEQ) _nodes.trebleEQ.gain.value = P.trebleGain;
+        if (_nodes.wetGain && isActive) _nodes.wetGain.gain.value = P.reverbSolo;
+        if (_nodes.convolver && _ctx) {
+          _nodes.convolver.buffer = createReverbBuffer(_ctx, P.reverbDuration);
+        }
+      };
+    });
+  }
+};
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => UI.init());
+} else {
+  UI.init();
+}
+
+})();
 </script>
+
 </body>
 </html>
